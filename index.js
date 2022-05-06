@@ -27,10 +27,25 @@ async function run() {
             const products = await cursor.toArray();
             res.send(products);
         })
+        //single product route
         app.get("/products/:id",async(req,res)=>{
             const id = req.params.id;
             const query = {_id:ObjectId(id)};
             const result = await productsCollection.findOne(query);
+            res.send(result);
+        })
+        //updating quantity
+        app.put("/products/:id",async(req,res)=>{
+            const id = req.params.id;
+            const body = req.body;
+            const filter = {_id:ObjectId(id)};
+            const options = {upsert:true};
+            const updateDoc = {
+                $set: {
+                  quantity: body.quantity
+                },
+              };
+            const result = await productsCollection.updateOne(filter,updateDoc,options);
             res.send(result);
         })
     }
