@@ -50,9 +50,16 @@ async function run() {
         })
         //Add new Product
         app.post("/products",async(req,res)=>{
-            const product = req.body.product;
+            const product = req.body.product; 
             console.log(product);
             const result = await productsCollection.insertOne(product);
+            res.send(result);
+        })
+        //delete product
+        app.delete("/products/:id",async(req,res)=>{
+            const id = req.params.id;
+            const query = {_id:ObjectId(id)};
+            const result = productsCollection.deleteOne(query);
             res.send(result);
         })
     }
