@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 })
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@cluster0.sk73k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -26,6 +26,12 @@ async function run() {
             const cursor = productsCollection.find(query);
             const products = await cursor.toArray();
             res.send(products);
+        })
+        app.get("/products/:id",async(req,res)=>{
+            const id = req.params.id;
+            const query = {_id:ObjectId(id)};
+            const result = await productsCollection.findOne(query);
+            res.send(result);
         })
     }
     finally {
