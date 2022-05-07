@@ -68,7 +68,10 @@ async function run() {
             res.send(result);
         })
         //get user products
-        app
+        app.get("/myproduct",async(req,res)=>{
+            const query = req.query;
+            res.send(query);
+        })
     }
     finally {
         //await client.close();
