@@ -8,9 +8,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("wassup polapain.?");
-})
+
 
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
@@ -52,7 +50,7 @@ async function run() {
         //Add new Product
         app.post("/products",async(req,res)=>{
             const product = req.body.product; 
-            console.log(product);
+            //console.log(product);
             const result = await productsCollection.insertOne(product);
             res.send(result);
         })
@@ -69,8 +67,10 @@ async function run() {
         //await client.close();
     }
 }
-run().catch(console.dir());
-
+run();
+app.get("/", (req, res) => {
+    res.send("wassup polapain.?");
+})
 app.listen(port, () => {
     console.log("connected");
 })
