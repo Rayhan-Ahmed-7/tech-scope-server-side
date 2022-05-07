@@ -70,7 +70,9 @@ async function run() {
         //get user products
         app.get("/myproduct",async(req,res)=>{
             const query = req.query;
-            res.send(query);
+            const cursor = productsCollection.find(query);
+            const result = await productsCollection.toArray();
+            res.send(result);
         })
     }
     finally {
