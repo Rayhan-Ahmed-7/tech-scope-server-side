@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const port = process.env.PORT || 5000;
 //middleware
@@ -24,8 +25,12 @@ async function run() {
             res.send(products);
         })
         //jwt on login
-        app.get("/login",async(req,res)=>{
-            
+        app.post("/login",async(req,res)=>{
+            const user = req.body;
+            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+                expiresIn: '1d'
+            });
+            res.send({ accessToken });
         })
         //single product route
         app.get("/products/:id",async(req,res)=>{
