@@ -62,6 +62,7 @@ async function run() {
             const result = productsCollection.deleteOne(query);
             res.send(result);
         })
+        //get user products
     }
     finally {
         //await client.close();
