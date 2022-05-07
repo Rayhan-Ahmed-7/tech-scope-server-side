@@ -23,6 +23,10 @@ async function run() {
             const products = await cursor.toArray();
             res.send(products);
         })
+        //jwt on login
+        app.get("/login",async(req,res)=>{
+            
+        })
         //single product route
         app.get("/products/:id",async(req,res)=>{
             const id = req.params.id;
@@ -59,12 +63,13 @@ async function run() {
             res.send(result);
         })
         //get user products
+        app
     }
     finally {
         //await client.close();
     }
 }
-run();
+run().catch(console.dir);
 app.get("/", (req, res) => {
     res.send("wassup polapain.?");
 })
