@@ -9,6 +9,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+//user jwt token verification function
 function verifyJWT(req, res, next) {
     const authHeader = req.headers.authorization;
     console.log(authHeader);
@@ -20,11 +21,11 @@ function verifyJWT(req, res, next) {
         if (err) {
             return res.status(403).send({ message: 'Forbidden access' });
         }
-        console.log('decoded', decoded);
+        //console.log('decoded', decoded);
         req.decoded = decoded;
         next();
     })
-    //console.log('inside verifyJWT',authHeader);
+    
 }
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
